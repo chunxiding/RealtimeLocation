@@ -1,12 +1,5 @@
 package com.example.realtimelocation;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -15,9 +8,14 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.realtimelocation.Interface.IFirebaseLoadDone;
 import com.example.realtimelocation.Interface.IRecyclerItemClickListener;
@@ -66,7 +64,7 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
 
         ifcmService = Common.getIfcmService();
 
-        searchBar = (MaterialSearchBar) findViewById(R.id.material_search_bar);
+        searchBar = findViewById(R.id.material_search_bar);
         searchBar.setCardViewElevation(10);
         searchBar.addTextChangeListener(new TextWatcher() {
             @Override
@@ -112,7 +110,7 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
             }
         });
 
-        recycler_all_user = (RecyclerView) findViewById(R.id.recycler_all_people);
+        recycler_all_user = findViewById(R.id.recycler_all_people);
         recycler_all_user.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recycler_all_user.setLayoutManager(layoutManager);
@@ -299,7 +297,7 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
 
         searchAdapter = new FirebaseRecyclerAdapter<User, UserViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull UserViewHolder userViewHolder, int i, @NonNull User user) {
+            protected void onBindViewHolder(@NonNull UserViewHolder userViewHolder, int i, @NonNull final User user) {
                 // logged user is me
                 if (user.getEmail().equals(Common.loggedUser.getEmail())) {
                     userViewHolder.txt_user_email.setText(new StringBuilder(user.getEmail()).append(" (me)"));
@@ -314,7 +312,7 @@ public class AllPeopleActivity extends AppCompatActivity implements IFirebaseLoa
                 userViewHolder.setiRecyclerItemClickListener(new IRecyclerItemClickListener() {
                     @Override
                     public void onItemClickListener(View view, int position) {
-
+                        showDialogReuqest(user);
                     }
                 });
             }

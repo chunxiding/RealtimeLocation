@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    tools:context=".HomeActivity">
+    tools:context=".AllPeopleActivity">
 
     <com.mancj.materialsearchbar.MaterialSearchBar
         android:id="@+id/material_search_bar"
@@ -21,7 +21,7 @@
         android:background="@android:color/darker_gray" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_friend_list"
+        android:id="@+id/recycler_all_people"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
 

@@ -2,18 +2,16 @@ package com.example.realtimelocation.Service;
 
 import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.os.IBinder;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
+import com.example.realtimelocation.Model.User;
 import com.example.realtimelocation.R;
 import com.example.realtimelocation.Utils.Common;
 import com.example.realtimelocation.Utils.NotificationHelper;
@@ -38,7 +36,20 @@ public class MyFCMService extends FirebaseMessagingService {
             } else {
                 sendNotification(remoteMessage);
             }
+            
+            addRequestToUserInfo(remoteMessage.getData());
         }
+    }
+
+    private void addRequestToUserInfo(Map<String, String> data) {
+        DatabaseReference friend_request = FirebaseDatabase.getInstance().getReference(Common.USER_INFO)
+                .child(data.get(Common.TO_UID))
+                .child(Common.FRIEND_REQUEST);
+        User user = new User();
+        user.setUid(data.get(Common.FROM_UID));
+        user.setEmail(data.get(Common.FROM_NAME));
+
+        friend_request.child(user.getUid()).setValue(user);
     }
 
     private void sendNotification(RemoteMessage remoteMessage) {
