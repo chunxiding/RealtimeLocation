@@ -23,3 +23,6 @@ Database Structure:
     * AllPeopleActivity: activate from sidebar; show all users of app; onClick event for sending friend requests.
     * FriendRequestActivity: activate from sidebar; show friend requests list; accept or cancel requests.
     
+<img src=https://github.com/chunxiding/RealtimeLocation/blob/master/Screen%20Shot%202019-09-26%20at%206.34.53%20PM.png
+     style="float: left; margin-right: 10px;" />
+    
